@@ -17,6 +17,14 @@
             "mainClass": "Server.BattleshipDriver",
             "projectName": "cs465_battleship_c66e9d6d",
             "args": "[8000]"
+        },
+        {
+            "type": "java",
+            "name": "Launch BattleshipDriverCustomBoard",
+            "request": "launch",
+            "mainClass": "Server.BattleshipDriver",
+            "projectName": "cs465_battleship_c66e9d6d",
+            "args": [8000, 5]
         }
     ]
 }
