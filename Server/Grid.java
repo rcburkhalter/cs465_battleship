@@ -1,6 +1,6 @@
 package Server;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid {
@@ -10,6 +10,8 @@ public class Grid {
 
     private int rows;
     private int columns;
+
+    Random rand = new Random();
 
     private int numOfShips;
 
@@ -57,7 +59,6 @@ public class Grid {
     }
 
     public void generateNumOfShips() {
-        Random rand = new Random();
 
         if (this.rows == 10) {
             numOfShips = rand.nextInt(4, 6);
@@ -68,6 +69,35 @@ public class Grid {
         } else if (this.rows < 6) {
             numOfShips = rand.nextInt(1, 2);
         }
+    }
+
+    public void addShip(int size, ShipType type) {
+        Ship ship = new Ship(size, type);
+        ShipType shipType = ship.getShipType();
+
+        int randNum = rand.nextInt(rows);
+
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                if (i == randNum) {
+                    board[i][j] = shipType.toString();
+                }
+            }
+        }
+
+    }
+
+    public Ship createShip(int size, ShipType type) {
+        Ship createdShip = new Ship(size, type);
+        return createdShip;
+    }
+
+    public void createRandomShip() {
+        ShipType[] ships;
+        ships = ShipType.values();
+
+        int randNum = rand.nextInt(ships.length);
+
     }
 
 }
