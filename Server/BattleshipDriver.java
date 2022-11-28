@@ -45,6 +45,7 @@ public class BattleshipDriver {
                 try {
                     String input = keyboard.next();
                     if (input.equals("1")|| input.equals("2") || input.equals("3")) {
+                        choice = Integer.parseInt(input);
                         System.out.println("Your choice: ");
                         choiceMade = true;
                     } else {
