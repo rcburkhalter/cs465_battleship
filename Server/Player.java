@@ -11,6 +11,7 @@ public class Player {
     public Player(String name, Grid grid) {
 
         this.playerName = name;
+        grid.populateGrid();
         this.playeGrid = grid;
     }
 

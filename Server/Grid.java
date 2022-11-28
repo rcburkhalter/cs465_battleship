@@ -118,4 +118,24 @@ public class Grid {
         return ship;
     }
 
+    public void populateGrid() {
+        generateNumOfShips();
+        for (int i = 0; i < numOfShips; i++) {
+            Ship tempship = createRandomShip();
+            boolean horiz = rand.nextBoolean();
+            if (horiz) {
+                int srcx = rand.nextInt(board.length - tempship.getShipSize() + 1);
+                int srcy = rand.nextInt(board[0].length);
+                for (int j = 0; j < tempship.getShipSize(); j++) {
+                    board[srcx + j][srcy] = "[" + tempship.getShipType().shipType + "]";
+                }
+            } else {
+                int srcy = rand.nextInt(board[0].length - tempship.getShipSize() + 1);
+                int srcx = rand.nextInt(board.length);
+                for (int j = 0; j < tempship.getShipSize(); j++) {
+                    board[srcx][srcy + j] = "[" + tempship.getShipType().shipType + "]";
+                }
+            }
+        }
+    }
 }

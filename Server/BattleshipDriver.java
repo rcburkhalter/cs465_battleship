@@ -33,7 +33,7 @@ public class BattleshipDriver {
 
         boolean gameOver = false;
         while (!gameOver) {
-            int choice;
+            int choice = 0;
             boolean choiceMade = false;
             System.out.println("It is " + game.getActivePlayer().getPlayerName() + "'s turn");
             System.out.println("Options:");
@@ -43,17 +43,33 @@ public class BattleshipDriver {
             while (!choiceMade) {
                 try {
                     choice = keyboard.nextInt();
-                    choiceMade = true;
+                    if (choice == 1 || choice == 2 || choice == 3) {
+                        choiceMade = true;
+                    } else {
+                        System.out.println("Invalid choice. Try again. (1: Fire; 2: Display board; 3: Surrender)");
+                    }
                 } catch (InputMismatchException e) {
                     System.out.println("Invalid entry. Try again. (1: Fire; 2: Display board; 3: Surrender)");
                 }
             }
+            switch (choice) {
+                case 2:
+                    game.getActivePlayer().displayPlayerBoard();
+                    break;
+            }
+            game.rotateActivePlayer();
         }
     }
 
     public static Game setupGame(String gridSize) {
         Game gameSetup = new Game();
-        System.out.println("Enter the number of players for this game: ");
+        try {
+            System.out.println("Enter the number of players for this game: ");
+        } catch (InputMismatchException e) {
+            System.out.println("Invalid number of players. Closing program");
+            System.exit(1);
+        }
+
         int numOfPlayers = keyboard.nextInt();
         int cnt = 0;
 
@@ -72,7 +88,7 @@ public class BattleshipDriver {
                 cnt++;
             }
         }
-        keyboard.close();
+        gameSetup.setInitialPlayer();
         return gameSetup;
     }
 }
