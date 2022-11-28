@@ -17,4 +17,8 @@ public class Ship {
         return this.type;
     }
 
+    public int getShipSize() {
+        return this.shipSize;
+    }
+
 }

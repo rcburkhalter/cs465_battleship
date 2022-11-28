@@ -1,5 +1,7 @@
 package Server;
+import Server.*;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class BattleshipDriver {
@@ -27,6 +29,25 @@ public class BattleshipDriver {
             game = setupGame(args[1]);
             game.displayBoards();
 
+        }
+
+        boolean gameOver = false;
+        while (!gameOver) {
+            int choice;
+            boolean choiceMade = false;
+            System.out.println("It is " + game.getActivePlayer().getPlayerName() + "'s turn");
+            System.out.println("Options:");
+            System.out.println("1: Fire");
+            System.out.println("2: Display board");
+            System.out.println("3: Surrender");
+            while (!choiceMade) {
+                try {
+                    choice = keyboard.nextInt();
+                    choiceMade = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Invalid entry. Try again. (1: Fire; 2: Display board; 3: Surrender)");
+                }
+            }
         }
     }
 

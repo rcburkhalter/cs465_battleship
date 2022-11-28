@@ -61,13 +61,13 @@ public class Grid {
     public void generateNumOfShips() {
 
         if (this.rows == 10) {
-            numOfShips = rand.nextInt(4, 6);
+            numOfShips = rand.nextInt(2) + 4;
         } else if (this.rows < 10 && this.rows > 7) {
-            numOfShips = rand.nextInt(3, 5);
+            numOfShips = rand.nextInt(2) + 3;
         } else if (this.rows < 7 && this.rows > 6) {
-            numOfShips = rand.nextInt(2, 3);
+            numOfShips = rand.nextInt(1) + 2;
         } else if (this.rows < 6) {
-            numOfShips = rand.nextInt(1, 2);
+            numOfShips = rand.nextInt(1) + 1;
         }
     }
 
@@ -92,12 +92,30 @@ public class Grid {
         return createdShip;
     }
 
-    public void createRandomShip() {
+    public Ship createRandomShip() {
         ShipType[] ships;
         ships = ShipType.values();
+        Ship ship;
 
         int randNum = rand.nextInt(ships.length);
+        switch (randNum) {
+            case 0:
+                ship = new Ship(2, ShipType.CARRIER);
+                break;
+            case 1:
+                ship = new Ship(3, ShipType.SUBMARINE);
+                break;
+            case 2:
+                ship = new Ship(3, ShipType.BATTLESHIP);
+                break;
+            case 3:
+                ship = new Ship(4, ShipType.CRUISER);
+                break;
+            default:
+                ship = new Ship(5, ShipType.DESTROYER);
+        }
 
+        return ship;
     }
 
 }
