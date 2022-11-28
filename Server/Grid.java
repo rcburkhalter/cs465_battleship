@@ -1,6 +1,5 @@
 package Server;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Grid {
@@ -136,6 +135,28 @@ public class Grid {
                     board[srcx][srcy + j] = "[" + tempship.getShipType().shipType + "]";
                 }
             }
+        }
+    }
+
+    public boolean getAlive() {
+        boolean alive = false;
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++) {
+                if (board[i][j].equals("[S]") || board[i][j].equals("[B]") || board[i][j].equals("[C]") || board[i][j].equals("[D]") || board[i][j].equals("[R]")) {
+                    alive = true;
+                }
+            }
+        }
+        return alive;
+    }
+
+    public boolean hit(int x, int y) {
+        if (board[x][y].equals("[S]") || board[x][y].equals("[B]") || board[x][y].equals("[C]") || board[x][y].equals("[D]") || board[x][y].equals("[R]")) {
+            board[x][y] = "[X]";
+            return true;
+        } else {
+            board[x][y] = "[O]";
+            return false;
         }
     }
 }

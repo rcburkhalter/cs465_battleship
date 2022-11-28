@@ -32,7 +32,7 @@ public class Game {
 
     public void displayPlayers() {
         for (Player player : gamePlayers) {
-            System.out.print(player.getPlayerName());
+            System.out.println(player.getPlayerName());
         }
     }
 
@@ -60,5 +60,28 @@ public class Game {
 
     public Player getActivePlayer() {
         return activePlayer;
+    }
+
+    public Player getWinner() {
+        ArrayList<Player> playersInGame = new ArrayList<Player>();
+        for (int i = 0; i < gamePlayers.size(); i++) {
+            if (gamePlayers.get(i).getGrid().getAlive()) {
+                playersInGame.add(gamePlayers.get(i));
+            }
+        }
+        if (playersInGame.size() == 1) {
+            return playersInGame.get(0);
+        } else {
+            return null;
+        }
+    }
+
+    public Player findPlayer(String fname) {
+        for (int i = 0; i < gamePlayers.size(); i++) {
+            if (fname.equals(gamePlayers.get(i).getPlayerName())) {
+                return gamePlayers.get(i);
+            }
+        }
+        return null;
     }
 }
