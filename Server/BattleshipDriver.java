@@ -15,17 +15,19 @@ public class BattleshipDriver {
     static Player player;
 
     public static void main(String[] args) {
+        int gameSize = 10;
         if (args.length < 1 || args.length > 2) {
             System.out.println("Usage: <file> <port num> [board size]");
         }
 
         if (args.length == 1) {
-            game = setupGame(null);
+            game = setupGame(gameSize);
             game.displayBoards();
         }
 
         if (args.length == 2) {
-            game = setupGame(args[1]);
+            gameSize = Integer.parseInt(args[1]);
+            game = setupGame(gameSize);
             game.displayBoards();
 
         }
@@ -41,8 +43,8 @@ public class BattleshipDriver {
             System.out.println("3: Quit");
             while (!choiceMade) {
                 try {
-                    choice = keyboard.nextInt();
-                    if (choice == 1|| choice == 2 || choice == 3) {
+                    String input = keyboard.next();
+                    if (input.equals("1")|| input.equals("2") || input.equals("3")) {
                         System.out.println("Your choice: ");
                         choiceMade = true;
                     } else {
@@ -62,13 +64,30 @@ public class BattleshipDriver {
                 case 1:
                     System.out.println("Select target to fire upon:");
                     game.displayPlayers();
-                    Player target = game.findPlayer(keyboard.next());
-                    if (target == null) {
-                        System.out.println("invalid player");
+                    Player target = null;
+                    while (target == null) {
+                        target = game.findPlayer(keyboard.next());
+                        if (target == null) {
+                            System.out.println("invalid player");
+                        }
                     }
-                    System.out.println("Enter target X and then target Y coordinates");
-                    int targx = keyboard.nextInt();
-                    int targy = keyboard.nextInt();
+                    System.out.println("Enter target X and then target Y coordinates (as indices)");
+                    boolean validCoords = false;
+                    int targx = 0;
+                    int targy = 0;
+                    while (!validCoords) {
+                        try {
+                            targx = keyboard.nextInt();
+                            targy = keyboard.nextInt();
+                            if (targx < gameSize && targy < gameSize) {
+                                validCoords = true;
+                            }
+                        } catch (InputMismatchException e) {
+                            System.out.println("Invalid coords. Try again");
+                        }
+
+                    }
+
                     if (game.getActivePlayer().Fire(target, targx, targy)) {
                         System.out.println("Hit");
                     } else {
@@ -77,13 +96,14 @@ public class BattleshipDriver {
                     game.rotateActivePlayer();
                     if (game.getWinner() != null) {
                         System.out.println("Congratulations " + game.getWinner().getPlayerName() + ", you won!");
+                        System.exit(0);
                     }
                     break;
             }
         }
     }
 
-    public static Game setupGame(String gridSize) {
+    public static Game setupGame(int gridSize) {
         Game gameSetup = new Game();
         int numOfPlayers = 0;
         try {
@@ -96,7 +116,7 @@ public class BattleshipDriver {
 
         int cnt = 0;
 
-        if (gridSize == null) {
+        if (gridSize == 10) {
             while (cnt < numOfPlayers) {
                 System.out.print("Enter a players name: ");
                 player = new Player(keyboard.next(), new Grid());
@@ -106,7 +126,7 @@ public class BattleshipDriver {
         } else {
             while (cnt < numOfPlayers) {
                 System.out.print("Enter a players name: ");
-                player = new Player(keyboard.next(), new Grid(Integer.parseInt(gridSize)));
+                player = new Player(keyboard.next(), new Grid(gridSize));
                 gameSetup.addPlayers(player);
                 cnt++;
             }
