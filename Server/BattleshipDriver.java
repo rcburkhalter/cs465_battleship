@@ -82,7 +82,7 @@ public class BattleshipDriver {
                             targy = keyboard.nextInt();
                             if (targx < gameSize && targy < gameSize) {
                                 validCoords = true;
-                            }
+                            } else{System.out.println("Invalid coords. Try again");}
                         } catch (InputMismatchException e) {
                             System.out.println("Invalid coords. Try again");
                         }
