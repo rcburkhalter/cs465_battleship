@@ -6,6 +6,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "Launch BattleshipDriver",
+            "request": "launch",
+            "mainClass": "Server.BattleshipDriver",
+            "projectName": "cs465_battleship_14ecfeb"
+        },
+        {
+            "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}"
@@ -24,7 +31,10 @@
             "request": "launch",
             "mainClass": "Server.BattleshipDriver",
             "projectName": "cs465_battleship_c66e9d6d",
-            "args": [8000, 5]
+            "args": [
+                8000,
+                5
+            ]
         }
     ]
 }
