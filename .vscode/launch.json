@@ -13,9 +13,13 @@
         },
         {
             "type": "java",
-            "name": "Launch Current File",
+            "name": "Launch BattleshipDriver 8000 2",
             "request": "launch",
-            "mainClass": "${file}"
+            "mainClass": "${file}",
+            "args": [
+                8000,
+                2
+            ]
         },
         {
             "type": "java",
@@ -27,10 +31,9 @@
         },
         {
             "type": "java",
-            "name": "Launch BattleshipDriverCustomBoard",
+            "name": "Launch BattleshipDriver 8000 5",
             "request": "launch",
-            "mainClass": "Server.BattleshipDriver",
-            "projectName": "cs465_battleship_c66e9d6d",
+            "mainClass": "${file}",
             "args": [
                 8000,
                 5

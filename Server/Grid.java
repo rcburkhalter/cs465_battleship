@@ -40,9 +40,8 @@ public class Grid {
     }
 
     public void displayGrid() {
-        System.out.print(" ");
         for (int c = 0; c < columns; c++) {
-            System.out.print("  " + c);
+            System.out.print("   " + c);
         }
         System.out.println();
         System.out.print(" +");
@@ -56,6 +55,39 @@ public class Grid {
                 System.out.print(" " + this.board[c][r] + " |");
             }
             System.out.print('\n');
+            System.out.print(" +");
+            for (int c = 0; c < columns; c++) {
+                System.out.print("---+");
+            }
+            System.out.println();
+        }
+    }
+
+    public void displayGridAsOther() {
+        for (int c = 0; c < columns; c++) {
+            System.out.print("   " + c);
+        }
+        System.out.println();
+        System.out.print(" +");
+        for (int c = 0; c < columns; c++) {
+            System.out.print("---+");
+        }
+        System.out.println();
+        for (int r = 0; r < rows; r++) {
+            System.out.print(Integer.toString(r) + "|");
+            for (int c = 0; c < columns; c++) {
+                char temp = ' ';
+                if (this.board[c][r] == 'X' || this.board[c][r] == 'O') {
+                    temp = this.board[c][r];
+                }
+                System.out.print(" " + temp + " |");
+            }
+            System.out.print('\n');
+            System.out.print(" +");
+            for (int c = 0; c < columns; c++) {
+                System.out.print("---+");
+            }
+            System.out.println();
         }
     }
 
@@ -70,13 +102,13 @@ public class Grid {
     public void generateNumOfShips() {
 
         if (this.rows == 10) {
-            numOfShips = rand.nextInt(2) + 4;
+            numOfShips = rand.nextInt(3) + 4;
         } else if (this.rows < 10 && this.rows > 7) {
-            numOfShips = rand.nextInt(2) + 3;
+            numOfShips = rand.nextInt(3) + 3;
         } else if (this.rows < 7 && this.rows > 6) {
-            numOfShips = rand.nextInt(1) + 2;
+            numOfShips = rand.nextInt(2) + 2;
         } else if (this.rows < 6) {
-            numOfShips = rand.nextInt(1) + 1;
+            numOfShips = rand.nextInt(2) + 1;
         }
     }
 

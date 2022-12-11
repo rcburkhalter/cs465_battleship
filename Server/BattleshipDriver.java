@@ -18,6 +18,7 @@ public class BattleshipDriver {
         int gameSize = 10;
         if (args.length < 1 || args.length > 2) {
             System.out.println("Usage: <file> <port num> [board size]");
+            System.exit(1);
         }
 
         if (args.length == 1) {
@@ -41,10 +42,11 @@ public class BattleshipDriver {
             System.out.println("1: Fire");
             System.out.println("2: Display board");
             System.out.println("3: Quit");
+            System.out.println("4: View other player's board");
             while (!choiceMade) {
                 try {
                     String input = keyboard.next();
-                    if (input.equals("1")|| input.equals("2") || input.equals("3")) {
+                    if (input.equals("1")|| input.equals("2") || input.equals("3") || input.equals("4")) {
                         choice = Integer.parseInt(input);
                         System.out.println("Your choice: " + Integer.toString(choice));
                         choiceMade = true;
@@ -100,6 +102,18 @@ public class BattleshipDriver {
                         System.exit(0);
                     }
                     break;
+                case 4:
+                    System.out.println("Select player to view board");
+                    game.displayPlayers();
+                    Player toView = null;
+                    while (toView == null) {
+                        toView = game.findPlayer(keyboard.next());
+                        if (toView == null) {
+                            System.out.println("Invalid player");
+                        }
+                        toView.getGrid().displayGridAsOther();
+                    }
+
             }
         }
     }
