@@ -2,6 +2,10 @@ package Server;
 
 import java.util.Random;
 
+/**
+ * This class represents one player's board in Battleship
+ * @author Ryan Burkhalter, Christopher Vines
+ */
 public class Grid {
 
     /* Battleship board */
@@ -13,7 +17,9 @@ public class Grid {
     Random rand = new Random();
 
     private int numOfShips;
-
+    /**
+     * Initalizes grid
+     */
     public Grid() {
         this.rows = 10;
         this.columns = 10;
@@ -26,7 +32,10 @@ public class Grid {
 
         }
     }
-
+    /**
+     * Alternate grid initialization given grid size
+     * @param gridSize
+     */
     public Grid(int gridSize) {
         this.rows = gridSize;
         this.columns = gridSize;
@@ -38,7 +47,9 @@ public class Grid {
             }
         }
     }
-
+    /**
+     * Displays grid in full detail
+     */
     public void displayGrid() {
         for (int c = 0; c < columns; c++) {
             System.out.print("   " + c);
@@ -62,7 +73,9 @@ public class Grid {
             System.out.println();
         }
     }
-
+    /**
+     * Used when players are viewing each other's board, prints only the hits and misses against target board
+     */
     public void displayGridAsOther() {
         for (int c = 0; c < columns; c++) {
             System.out.print("   " + c);
@@ -90,15 +103,24 @@ public class Grid {
             System.out.println();
         }
     }
-
+    /**
+     * returns the number of rows of the grid
+     * @return number of rows
+     */
     public int getRows() {
         return this.rows;
     }
-
+    /**
+     * returns number of columns in grid
+     * @return number of columns
+     */
     public int getColumns() {
         return this.columns;
     }
 
+    /**
+     * Generates a number of ships based on the size of the board
+     */
     public void generateNumOfShips() {
 
         if (this.rows == 10) {
@@ -111,7 +133,11 @@ public class Grid {
             numOfShips = rand.nextInt(2) + 1;
         }
     }
-
+    /**
+     * Adds a ship to the board
+     * @param size size of ship
+     * @param type type of ship
+     */
     public void addShip(int size, ShipType type) {
         Ship ship = new Ship(size, type);
         ShipType shipType = ship.getShipType();
@@ -127,12 +153,21 @@ public class Grid {
         }
 
     }
-
+    /**
+     * creates one specific ship
+     * @param size size of ship
+     * @param type type of ship
+     * @return ship with given parameters
+     */
     public Ship createShip(int size, ShipType type) {
         Ship createdShip = new Ship(size, type);
         return createdShip;
     }
 
+    /**
+     * Creates a ship of random type
+     * @return a random ship of the allowed types
+     */
     public Ship createRandomShip() {
         ShipType[] ships;
         ships = ShipType.values();
@@ -158,7 +193,9 @@ public class Grid {
 
         return ship;
     }
-
+    /**
+     * places ships
+     */
     public void populateGrid() {
         generateNumOfShips();
         for (int i = 0; i < numOfShips; i++) {
@@ -180,6 +217,10 @@ public class Grid {
         }
     }
 
+    /**
+     * returns if the player holding the board is still in the game
+     * @return player alive status
+     */
     public boolean getAlive() {
         boolean alive = false;
         for (int i = 0; i < board.length; i++) {
@@ -192,6 +233,12 @@ public class Grid {
         return alive;
     }
 
+    /**
+     * processes shots against the grid
+     * @param x target x coord
+     * @param y target y coord
+     * @return true if hit, false if miss
+     */
     public boolean hit(int x, int y) {
         if (board[x][y] == 'S' || board[x][y] == 'B' || board[x][y] == 'C' || board[x][y] == 'D' || board[x][y] == 'R') {
             board[x][y] = 'X';

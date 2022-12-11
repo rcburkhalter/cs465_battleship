@@ -1,5 +1,9 @@
 package Server;
 
+/**
+ * Enumeration for all of the types of ships seen in Battleship
+ * @author Ryan Burkhalter, Christopher Vines
+ */
 public enum ShipType {
 
     CARRIER("C"),

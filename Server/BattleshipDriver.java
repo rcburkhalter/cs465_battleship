@@ -1,8 +1,13 @@
 package Server;
 
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+/**
+ * this class handles the operation of the battleship game from the server side
+ * @author Ryan Burkhalter, Christopher vines
+ */
 public class BattleshipDriver {
 
     /* Instance of a battleship game */
@@ -14,24 +19,54 @@ public class BattleshipDriver {
     /* A battleship player */
     static Player player;
 
+    /**
+     * main
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         int gameSize = 10;
+        BattleServer bs;
         if (args.length < 1 || args.length > 2) {
             System.out.println("Usage: <file> <port num> [board size]");
             System.exit(1);
         }
 
+        int portno = 0;
+        try {
+            portno = Integer.parseInt(args[0]);
+        } catch (NumberFormatException e) {
+            
+        }
+
+        int numOfPlayers = 0;
+        boolean validNum = false;
+        while (!validNum) {
+            try {
+                System.out.println("Enter the number of players for this game: ");
+                numOfPlayers = keyboard.nextInt();
+                validNum = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid number of players. Please try again");
+            }
+        }
+
+
         if (args.length == 1) {
-            game = setupGame(gameSize);
+            game = setupGame(gameSize, numOfPlayers);
             game.displayBoards();
         }
 
         if (args.length == 2) {
             gameSize = Integer.parseInt(args[1]);
-            game = setupGame(gameSize);
+            game = setupGame(gameSize, numOfPlayers);
             game.displayBoards();
-
         }
+        try {
+            bs = new BattleServer(portno, numOfPlayers);
+        } catch (IOException e) {
+            System.out.println("An error occured initializing the server. Aborting program");
+        }
+
 
         boolean gameOver = false;
         while (!gameOver) {
@@ -118,17 +153,14 @@ public class BattleshipDriver {
         }
     }
 
-    public static Game setupGame(int gridSize) {
+    /**
+     * This method sets up a game of battleship, making the grids and players
+     * @param gridSize desired size of play grid (one dimension of a square)
+     * @param numOfPlayers desired number of players
+     * @return set up game
+     */
+    public static Game setupGame(int gridSize, int numOfPlayers) {
         Game gameSetup = new Game();
-        int numOfPlayers = 0;
-        try {
-            System.out.println("Enter the number of players for this game: ");
-            numOfPlayers = keyboard.nextInt();
-        } catch (InputMismatchException e) {
-            System.out.println("Invalid number of players. Closing program");
-            System.exit(1);
-        }
-
         int cnt = 0;
 
         if (gridSize == 10) {
