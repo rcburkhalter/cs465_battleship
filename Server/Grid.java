@@ -5,7 +5,7 @@ import java.util.Random;
 public class Grid {
 
     /* Battleship board */
-    private String board[][];
+    private char board[][];
 
     private int rows;
     private int columns;
@@ -17,11 +17,11 @@ public class Grid {
     public Grid() {
         this.rows = 10;
         this.columns = 10;
-        this.board = new String[rows][columns];
+        this.board = new char[rows][columns];
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
-                this.board[c][r] = "[ ]";
+                this.board[c][r] = ' ';
             }
 
         }
@@ -30,20 +30,30 @@ public class Grid {
     public Grid(int gridSize) {
         this.rows = gridSize;
         this.columns = gridSize;
-        this.board = new String[gridSize][gridSize];
+        this.board = new char[gridSize][gridSize];
 
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < columns; c++) {
-                this.board[c][r] = "[ ]";
+                this.board[c][r] = ' ';
             }
         }
     }
 
     public void displayGrid() {
-        // System.out.println(Arrays.deepToString(this.board).replace("],", "]\n"));
+        System.out.print(" ");
+        for (int c = 0; c < columns; c++) {
+            System.out.print("  " + c);
+        }
+        System.out.println();
+        System.out.print(" +");
+        for (int c = 0; c < columns; c++) {
+            System.out.print("---+");
+        }
+        System.out.println();
         for (int r = 0; r < rows; r++) {
+            System.out.print(Integer.toString(r) + "|");
             for (int c = 0; c < columns; c++) {
-                System.out.print(this.board[c][r] + " ");
+                System.out.print(" " + this.board[c][r] + " |");
             }
             System.out.print('\n');
         }
@@ -79,7 +89,7 @@ public class Grid {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 if (i == randNum) {
-                    board[i][j] = shipType.toString();
+                    board[i][j] = shipType.toString().charAt(0);
                 }
             }
         }
@@ -126,13 +136,13 @@ public class Grid {
                 int srcx = rand.nextInt(board.length - tempship.getShipSize() + 1);
                 int srcy = rand.nextInt(board[0].length);
                 for (int j = 0; j < tempship.getShipSize(); j++) {
-                    board[srcx + j][srcy] = "[" + tempship.getShipType().shipType + "]";
+                    board[srcx + j][srcy] = tempship.getShipType().shipType.charAt(0);
                 }
             } else {
                 int srcy = rand.nextInt(board[0].length - tempship.getShipSize() + 1);
                 int srcx = rand.nextInt(board.length);
                 for (int j = 0; j < tempship.getShipSize(); j++) {
-                    board[srcx][srcy + j] = "[" + tempship.getShipType().shipType + "]";
+                    board[srcx][srcy + j] = tempship.getShipType().shipType.charAt(0);
                 }
             }
         }
@@ -142,7 +152,7 @@ public class Grid {
         boolean alive = false;
         for (int i = 0; i < board.length; i++) {
             for (int j = 0; j < board[0].length; j++) {
-                if (board[i][j].equals("[S]") || board[i][j].equals("[B]") || board[i][j].equals("[C]") || board[i][j].equals("[D]") || board[i][j].equals("[R]")) {
+                if (board[i][j] == 'S' || board[i][j] == 'B' || board[i][j] == 'C' || board[i][j] == 'D' || board[i][j] == 'R') {
                     alive = true;
                 }
             }
@@ -151,11 +161,11 @@ public class Grid {
     }
 
     public boolean hit(int x, int y) {
-        if (board[x][y].equals("[S]") || board[x][y].equals("[B]") || board[x][y].equals("[C]") || board[x][y].equals("[D]") || board[x][y].equals("[R]")) {
-            board[x][y] = "[X]";
+        if (board[x][y] == 'S' || board[x][y] == 'B' || board[x][y] == 'C' || board[x][y] == 'D' || board[x][y] == 'R') {
+            board[x][y] = 'X';
             return true;
         } else {
-            board[x][y] = "[O]";
+            board[x][y] = 'O';
             return false;
         }
     }
